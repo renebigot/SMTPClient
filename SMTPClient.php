@@ -8,7 +8,7 @@
     
     Usage :
 	    $smtpClient = new SMTPClient();
-		$smtpClient->setServer("smtp.gmail.com", "465", true);
+		$smtpClient->setServer("smtp.gmail.com", "465", "tls");
 		$smtpClient->setSender("myemailaddressexample@gmail.com", 
 								"myemailaddressexample@gmail.com",
 								"mypassword");
@@ -126,7 +126,7 @@ class SMTPClient {
 				if (!($socket = fsockopen(($this->security ? $this->security . "://" : "") 
 					. $this->smtpHost, $this->smtpPort, $errno, $errstr, 15)))
 					throw new Exception("Could not connect to SMTP host ".
-										"'$smtp_host' ($errno) ($errstr)\n");
+										"'" . $this->smtpHost . "' ($errno) ($errstr)\n");
 			}
 			
 			$this->waitForPositiveCompletionReply($socket);
@@ -394,4 +394,3 @@ class SMTPClient {
 		$this->charset = $charset;
 	}
 }
-?>
